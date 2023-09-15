@@ -12,34 +12,40 @@ def parse_dimacs_file(filename):
     var_num = 0
     with open(filename, 'r') as file:
         for line in file:
-            if line.startswith('c') or line.startswith('%') or line.startswith('0'):
+            if line[0] in ['c', '%', '0']:
                 continue
-            elif line.startswith('p'):
-                _, _, var_num, nclauses = line.split()
+            if line[0] == 'p':
+                _, _, var_num, _ = line.split()
                 var_num = int(var_num)
                 continue
-            clause = [int(x) for x in line.split()[:-1]]
+            clause = list(map(int, line.split()[:-1]))
             if clause:
                 clauses.append(clause)
-    print (clauses)
     return clauses, var_num
 
 def unit_propagation(formula):
     assignment = []
-    unit_clauses = [c for c in formula if len(c) == 1]
-    while unit_clauses != []:
-        unit = unit_clauses[0][0]
-        assignment.append(unit)
-        formula = assign(formula, unit)
-        if formula == "flag":
-            return "flag", []
-        elif not formula:
-            return formula, assignment
+    formula = formula[:]  # copy the formula to avoid side-effects
+
+    index = 0
+    while index < len(formula):
+        clause = formula[index]
+        if len(clause) == 1:
+            unit = clause[0]
+            assignment.append(unit)
+            formula = [c for c in formula if unit not in c]
+            for i, c in enumerate(formula):
+                if -unit in c:
+                    formula[i] = [v for v in c if v != -unit]
+            if [] in formula:
+                return "flag", []
+            index = 0  # reset the index when unit is found and assigned
         else:
-            unit_clauses = [c for c in formula if len(c) == 1]
+            index += 1
+
     return formula, assignment
 
-def literal_clause(formula):
+def find_literal(formula):
     assignment = [] 
     counter = get_counter(formula)
     pure_literals = []
@@ -70,8 +76,7 @@ def assign(formula, unit):
 
 def solve(formula, assignment):
     # Get literal clause
-    
-    literal_result = literal_clause(formula)
+    literal_result = find_literal(formula)
     formula = literal_result[0]
     pure_assignment = literal_result[1]
     # Get unit propagation
