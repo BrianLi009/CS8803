@@ -11,16 +11,21 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
     """add heuristic on how the literals are chosen"""
     #reference: https://baldur.iti.kit.edu/sat/files/2018/l05.pdf
     #https://en.wikipedia.org/wiki/Boolean_satisfiability_algorithm_heuristics
-
     if heuristic == "r":
         counter = get_counter(formula)
         literals = list(counter.keys())
         selected_literal = random.choice(literals)
     elif heuristic == "t":
         counter = get_counter(formula, True)
-        selected_literal = max(counter, key=counter.get)
+        if counter != {}:
+            selected_literal = max(counter, key=counter.get)
+        else:
+            counter = get_counter(formula)
+            literals = list(counter.keys())
+            selected_literal = random.choice(literals)
     elif heuristic == "v":
         counter_dicts = get_counter_all(formula)
+        counter = get_counter(formula)
         counter_weighted, counter_absolute, counter_weighted_absolute = counter_dicts[0], counter_dicts[1], counter_dicts[2]
         #perform relative majority voting
         #Jeroslow-Wang Heuristic
@@ -33,12 +38,18 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
         counter = get_counter(formula, True)
-        selected_literal_4 = max(counter, key=counter.get)
+        if counter != {}:
+            selected_literal_4 = max(counter, key=counter.get)
+        else:
+            counter = get_counter(formula)
+            literals = list(counter.keys())
+            selected_literal_4 = random.choice(literals)
         selected_literal = majority_voting([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3, selected_literal_4])
     elif heuristic == "p":
         counter_dicts = get_counter_all(formula)
+        counter = get_counter(formula)
         counter_weighted, counter_absolute, counter_weighted_absolute = counter_dicts[0], counter_dicts[1], counter_dicts[2]
-        #output based on probability
+        #perform relative majority voting
         #Jeroslow-Wang Heuristic
         selected_literal_0 = max(counter_weighted, key=counter_weighted.get)
         #Jeroslow-Wang Heuristic (2 sided)
@@ -49,7 +60,12 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
         counter = get_counter(formula, True)
-        selected_literal_4 = max(counter, key=counter.get)
+        if counter != {}:
+            selected_literal_4 = max(counter, key=counter.get)
+        else:
+            counter = get_counter(formula)
+            literals = list(counter.keys())
+            selected_literal_4 = random.choice(literals)
         selected_literal = output_based_on_prob([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3, selected_literal_4])
     else:
         print ("invalid option, using 2-clause by default")

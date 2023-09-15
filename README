@@ -26,4 +26,4 @@ t: two-clause heuristics
 v: relative majority voting heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-clause), shortest positive-literal-clause, DLCS, 2-clause
 p: probabilistic heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-clause), shortest positive-literal-clause, DLCS, 2-clause
 
-Note: these heuristics are currently not outperforming two-clause.
+Note: the custom heuristics can still be improved, and such improvements will be reflected in the final report

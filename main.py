@@ -12,7 +12,7 @@ def parse_dimacs_file(filename):
     var_num = 0
     with open(filename, 'r') as file:
         for line in file:
-            if line.startswith('c'):
+            if line.startswith('c') or line.startswith('%') or line.startswith('0'):
                 continue
             elif line.startswith('p'):
                 _, _, var_num, nclauses = line.split()
@@ -21,6 +21,7 @@ def parse_dimacs_file(filename):
             clause = [int(x) for x in line.split()[:-1]]
             if clause:
                 clauses.append(clause)
+    print (clauses)
     return clauses, var_num
 
 def unit_propagation(formula):
@@ -69,6 +70,7 @@ def assign(formula, unit):
 
 def solve(formula, assignment):
     # Get literal clause
+    
     literal_result = literal_clause(formula)
     formula = literal_result[0]
     pure_assignment = literal_result[1]
