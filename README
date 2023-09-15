@@ -6,6 +6,7 @@ generate.py             a Python script generating einstein.cnf
 main.py                 main file for the DPLL SAT Solver
 heuristic.py            heuristics implementation for the solver
 settings.py             global counter variables for unit propagations and branching
+runbenchmarks.sh        bash script to run 100 UNSAT instances from the SATLIB benchmark
 README
 
 ================================================================================
