@@ -48,15 +48,21 @@ def unit_propagation(formula):
 def find_literal(formula):
     assignment = [] 
     counter = get_counter(formula)
-    pure_literals = []
-    # check if its negation exist so that we can safely assign to the literal
-    for literal, times in counter.items():
-        if -literal not in counter:
-            pure_literals.append(literal)
-    for lit in pure_literals:
-        formula = assign(formula, lit)
-    assignment += pure_literals
-    return formula, assignment
+    pure_literals = {literal for literal, times in counter.items() if -literal not in counter}
+
+    new_formula = []
+    for clause in formula:
+        new_clause = []
+        for literal in clause:
+            if abs(literal) in pure_literals:
+                if literal > 0:
+                    assignment.append(literal)
+                continue
+            new_clause.append(literal)
+        if new_clause:
+            new_formula.append(new_clause)
+
+    return new_formula, assignment
 
 def assign(formula, unit):
     """if a clause has only one unassigned literal, that literal must be assigned the value that satisfies the clause"""
@@ -64,59 +70,49 @@ def assign(formula, unit):
     for clause in formula:
         if unit in clause:
             continue
-        elif -unit in clause:
-            settings.unit_propagations_counter += 1
-            updated_clause = [x for x in clause if x != -unit]
-            new_formula.append(updated_clause)
-            if not updated_clause:
-                return "flag"
-        else:
-            new_formula.append(clause)
+        new_clause = [x for x in clause if x != -unit]
+        if not new_clause:
+            return "flag"
+        new_formula.append(new_clause)
     return new_formula
 
-def solve(formula, assignment):
-    # Get literal clause
-    literal_result = find_literal(formula)
-    formula = literal_result[0]
-    pure_assignment = literal_result[1]
-    # Get unit propagation
-    unit_result = unit_propagation(formula)
-    formula = unit_result[0]
-    unit_assignment = unit_result[1]
-    # Update assignment
-    assignment.extend(pure_assignment)
-    assignment.extend(unit_assignment)
+def solve(formula, assignment, arg=None):
+    formula, pure_assignment = find_literal(formula)
+    formula, unit_assignment = unit_propagation(formula)
+
+    assignment += pure_assignment + unit_assignment
+
     if formula == "flag":
         return []
     if not formula:
         return assignment
-    if len(sys.argv) > 2:
-        variable = choose_literal(formula, sys.argv[2])
+
+    variable = choose_literal(formula, arg) if arg else choose_literal(formula)
+
+    for var in [variable, -variable]:
+        solution = solve(assign(formula, var), assignment + [var])
+        if solution:
+            return solution
+    return []
+
+def print_results(solution, var_num, elapsed_time):
+    print('c total solving time:', elapsed_time)
+    print('c number of splits:', settings.split_counter)
+    print('c number of unit propagations:', settings.unit_propagations_counter)
+    if solution:
+        solution += [x for x in range(1, var_num + 1) if x not in solution and -x not in solution]
+        solution.sort(key=abs)
+        print('s SATISFIABLE')
+        print('v', ' '.join(map(str, solution)), '0')
     else:
-        variable = choose_literal(formula)
-    settings.split_counter += 1
-    solution = solve(assign(formula, variable), assignment + [variable])
-    if not solution:
-        settings.split_counter += 1
-        solution = solve(assign(formula, -variable), assignment + [-variable])
-    return solution
+        print('s UNSATISFIABLE')
 
 def main():
     clauses, var_num = parse_dimacs_file(sys.argv[1])
-    st = time.time()
+    start_time = time.time()
     solution = solve(clauses, [])
-    et = time.time()
-    elapsed_time = et - st
-    print ('c total solving time: ', elapsed_time)
-    print ('c number of splits: ', settings.split_counter)
-    print ('c number of unit propagations: ', settings.unit_propagations_counter)
-    if solution:
-        solution += [x for x in range(1, var_num + 1) if x not in solution and -x not in solution]
-        solution.sort(key=lambda x: abs(x))
-        print ('s SATISFIABLE')
-        print ('v ' + ' '.join([str(x) for x in solution]) + ' 0')
-    else:
-        print ('s UNSATISFIABLE')
+    elapsed_time = time.time() - start_time
+    print_results(solution, var_num, elapsed_time)
 
 if __name__ == '__main__':
     main()
