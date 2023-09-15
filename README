@@ -13,6 +13,17 @@ EXAMPLES:
 
 **Generating the instance:** python generate.py
 
-**Solving the instance:** python main.py einstein.cnf [v/p]
+**Solving the instance:** python main.py einstein.cnf [r/t/v/p]
 
-Note: parameter v (voting) or p (probability) are optional parameters, if no parameter is given, we will use (relative majority) voting by default
+**Example:** python main.py einstein.cnf t
+
+Note: if no parameter is given, we will use 2-clause by default
+
+================================================================================
+PARAMETERS:
+r: randome heuristics
+t: two-clause heuristics
+v: relative majority voting heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-clause), shortest positive-literal-clause, DLCS, 2-clause
+p: probabilistic heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-clause), shortest positive-literal-clause, DLCS, 2-clause
+
+Note: these heuristics are currently not outperforming two-clause.

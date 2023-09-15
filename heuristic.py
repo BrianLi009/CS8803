@@ -5,12 +5,15 @@ import time
 import settings
 from collections import Counter
 
+random.seed(42) 
+
 def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(voting), p(probabilitic)
     """add heuristic on how the literals are chosen"""
     #reference: https://baldur.iti.kit.edu/sat/files/2018/l05.pdf
     #https://en.wikipedia.org/wiki/Boolean_satisfiability_algorithm_heuristics
 
     if heuristic == "r":
+        counter = get_counter(formula)
         literals = list(counter.keys())
         selected_literal = random.choice(literals)
     elif heuristic == "t":
@@ -49,9 +52,9 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         selected_literal_4 = max(counter, key=counter.get)
         selected_literal = output_based_on_prob([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3, selected_literal_4])
     else:
-        print ("invalid option, using random by default")
-        literals = list(counter.keys())
-        selected_literal = random.choice(literals)
+        print ("invalid option, using 2-clause by default")
+        counter = get_counter(formula, True)
+        selected_literal = max(counter, key=counter.get)
 
     #print ("literal chosen by different heuristics:", selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3)
     #print ("choosing", selected_literal)
