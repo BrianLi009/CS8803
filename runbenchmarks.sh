@@ -17,7 +17,7 @@ for file in "$DIRECTORY"/*; do
     start=$(date +%s.%N)
 
     # Run the python command with the file as argument
-    python main.py "$file" t
+    python main.py "$file" p
 
     # Stop timer and calculate elapsed time
     end=$(date +%s.%N)

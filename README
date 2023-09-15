@@ -27,3 +27,7 @@ v: relative majority voting heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-c
 p: probabilistic heuristics based on Jeroslow-Wang, Jeroslow-Wang(2-clause), shortest positive-literal-clause, DLCS, 2-clause
 
 Note: the custom heuristics can still be improved, and such improvements will be reflected in the final report
+
+================================================================================
+Disclaimer:
+the DIMACS files in benchmarks are for testing only, I did not produce these files, as they are from the SATLIB Benchmark Problems
