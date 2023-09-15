@@ -90,7 +90,7 @@ def solve(formula, assignment, arg=None):
     variable = choose_literal(formula, arg) if arg else choose_literal(formula)
 
     for var in [variable, -variable]:
-        solution = solve(assign(formula, var), assignment + [var])
+        solution = solve(assign(formula, var), assignment + [var], arg)
         if solution:
             return solution
     return []
@@ -109,7 +109,10 @@ def print_results(solution, var_num, elapsed_time):
 def main():
     clauses, var_num = parse_dimacs_file(sys.argv[1])
     start_time = time.time()
-    solution = solve(clauses, [])
+    if len(sys.argv) > 2:
+        solution = solve(clauses, [], sys.argv[2])
+    else:
+        solution = solve(clauses, [])
     elapsed_time = time.time() - start_time
     print_results(solution, var_num, elapsed_time)
 
