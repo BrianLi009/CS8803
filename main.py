@@ -82,10 +82,10 @@ def solve(formula, assignment, arg=None):
 
     assignment += pure_assignment + unit_assignment
 
-    if formula == "flag":
-        return []
     if not formula:
         return assignment
+    elif formula == "flag":
+        return []
 
     variable = choose_literal(formula, arg) if arg else choose_literal(formula)
 
