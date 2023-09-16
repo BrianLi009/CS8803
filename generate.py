@@ -36,7 +36,7 @@ def generate():
                               if house != house2:
                                    cnf.write(str(-var_dict[(house, properties, choices)]) + " " + str(-var_dict[(house2, properties, choices)]) + " 0\n")
                                    clause_count += 1
-     #each house has exactly on exactly one choice for each property
+     #each house has exactly one choice for each property
      for properties in range(1,6):
           for house in range(1,6):
                cnf.write(str(var_dict[(house, properties, 1)]) + " " + str(var_dict[(house, properties, 2)]) + " " + str(var_dict[(house, properties, 3)]) + " " + str(var_dict[(house, properties, 4)]) + " " + str(var_dict[(house, properties, 5)]) + " 0\n")
