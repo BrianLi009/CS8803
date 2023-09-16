@@ -33,7 +33,7 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         #Jeroslow-Wang Heuristic (2 sided)
         selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
         #searches for the shortest clause with all literals positive.
-        selected_literal_2 = shortest_positive_clause(formula)
+        selected_literal_2 = shortest_clause_positive(formula)
         #DLCS
         selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
@@ -55,7 +55,7 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         #Jeroslow-Wang Heuristic (2 sided)
         selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
         #searches for the shortest clause with all literals positive.
-        selected_literal_2 = shortest_positive_clause(formula)
+        selected_literal_2 = shortest_clause_positive(formula)
         #DLCS
         selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
@@ -136,14 +136,13 @@ def get_counter(formula, two_clause = False):
                     counter[literal] = 1
     return counter
 
-def shortest_positive_clause(formula):
+def shortest_clause_positive(formula):
     min_len = sys.maxsize
     best_literal = None
     for clause in formula:
-        negatives = sum(1 for literal in clause if literal < 0)
-        if not negatives and len(clause) < min_len: 
-            best_literal = clause[0]
-            min_len = len(clause)
-    if not best_literal:
-        return formula[0][0]
-    return best_literal
+        if all(literal >= 0 for literal in clause):
+            len_clause = len(clause)
+            if len_clause < min_len:
+                best_literal = clause[0]
+                min_len = len_clause
+    return formula[0][0] if not best_literal else best_literal
