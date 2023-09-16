@@ -12,7 +12,7 @@ README
 ================================================================================
 EXAMPLES:
 
-**Generating the instance:** python generate.py
+**Generating the einstein puzzle instance:** python generate.py
 
 **Solving the instance:** python main.py einstein.cnf [r/t/v/p]
 
