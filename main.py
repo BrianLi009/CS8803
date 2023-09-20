@@ -38,7 +38,7 @@ def unit_propagation(formula):
                 if -unit in c:
                     formula[i] = [v for v in c if v != -unit]
             if [] in formula:
-                settings.conflict_counter += 1
+                settings.split_counter += 1
                 return "flag", []
             index = 0  # reset the index when unit is found and assigned
         else:
@@ -97,7 +97,7 @@ def solve(formula, assignment, arg=None):
 
 def print_results(solution, var_num, elapsed_time):
     print('c total solving time:', elapsed_time)
-    print('c number of conflicts:', settings.conflict_counter)
+    print('c number of splits:', settings.split_counter)
     if solution:
         solution += [x for x in range(1, var_num + 1) if x not in solution and -x not in solution]
         solution.sort(key=abs)

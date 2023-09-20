@@ -1,5 +1,5 @@
 #!/usr/bin/env python
 
 def init():
-    global conflict_counter
-    conflict_counter = 0
+    global split_counter
+    split_counter = 0
