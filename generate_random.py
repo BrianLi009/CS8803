@@ -15,14 +15,11 @@ def generate_random(N, K, L):
     
     return clauses
 
-if not os.path.exists('3-SAT'):
-    os.makedirs('3-SAT')
-
-def main(N, K, L):
+def main(N, K, L, directory):
     #generate 100 DIMACS files
     for i in range(100):
         clauses = generate_random(N, K, L)
-        with open(f'3-SAT/output_{i}.cnf', 'w') as f:
+        with open(directory + f'/output_{i}.cnf', 'w') as f:
             f.write(f'p cnf {N} {L}\n')
             # Write clauses to the file:
             for clause in clauses:
@@ -32,4 +29,7 @@ if __name__ == '__main__':
     N = int(sys.argv[1])
     L = int(sys.argv[2])
     K = 3
-    main(N, K, L)
+    directory = sys.argv[3]
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    main(N, K, L, directory)
