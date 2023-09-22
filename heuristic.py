@@ -4,6 +4,7 @@ import sys, random
 import time
 import settings
 from collections import Counter
+from collections import defaultdict
 
 random.seed(42) 
 
@@ -11,6 +12,7 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
     """add heuristic on how the literals are chosen"""
     #reference: https://baldur.iti.kit.edu/sat/files/2018/l05.pdf
     #https://en.wikipedia.org/wiki/Boolean_satisfiability_algorithm_heuristics
+    start_time = time.time()
     if heuristic == "r":
         counter = get_counter(formula)
         literals = list(counter.keys())
@@ -32,19 +34,17 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         selected_literal_0 = max(counter_weighted, key=counter_weighted.get)
         #Jeroslow-Wang Heuristic (2 sided)
         selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
-        #searches for the shortest clause with all literals positive.
-        selected_literal_2 = shortest_clause_positive(formula)
         #DLCS
-        selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
+        selected_literal_2 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
         counter = get_counter(formula, True)
         if counter != {}:
-            selected_literal_4 = max(counter, key=counter.get)
+            selected_literal_3 = max(counter, key=counter.get)
         else:
             counter = get_counter(formula)
             literals = list(counter.keys())
-            selected_literal_4 = random.choice(literals)
-        selected_literal = majority_voting([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3, selected_literal_4])
+            selected_literal_3 = random.choice(literals)
+        selected_literal = majority_voting([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3 ])
     elif heuristic == "p":
         counter_dicts = get_counter_all(formula)
         counter = get_counter(formula)
@@ -54,19 +54,17 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
         selected_literal_0 = max(counter_weighted, key=counter_weighted.get)
         #Jeroslow-Wang Heuristic (2 sided)
         selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
-        #searches for the shortest clause with all literals positive.
-        selected_literal_2 = shortest_clause_positive(formula)
         #DLCS
-        selected_literal_3 = max(counter_absolute, key=counter_absolute.get)
+        selected_literal_2 = max(counter_absolute, key=counter_absolute.get)
         #2-clause
         counter = get_counter(formula, True)
         if counter != {}:
-            selected_literal_4 = max(counter, key=counter.get)
+            selected_literal_3 = max(counter, key=counter.get)
         else:
             counter = get_counter(formula)
             literals = list(counter.keys())
-            selected_literal_4 = random.choice(literals)
-        selected_literal = output_based_on_prob([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3, selected_literal_4])
+            selected_literal_3 = random.choice(literals)
+        selected_literal = output_based_on_prob([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3])
     else:
         print ("invalid option, using 2-clause by default")
         counter = get_counter(formula, True)
@@ -74,6 +72,9 @@ def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(votin
 
     #print ("literal chosen by different heuristics:", selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3)
     #print ("choosing", selected_literal)
+    settings.split_counter += 1
+    elapsed_time = time.time() - start_time
+    print ("heuristic cost: ", elapsed_time)
     return selected_literal
 
 def majority_voting(int_list):
@@ -98,24 +99,17 @@ def output_based_on_prob(int_list):
     return random.choices(list(counts.keys()), prob)[0]
 
 def get_counter_all(formula):
-    counter_weighted = {}
-    counter_absolute = {}
-    counter_weighted_absolute = {}
+    counter_weighted = defaultdict(float)
+    counter_absolute = defaultdict(int)
+    counter_weighted_absolute = defaultdict(float)
+    
     for clause in formula:
         for literal in clause:
             abs_literal = abs(literal)
-            if literal in counter_weighted:
-                counter_weighted[literal] += 2 ** -len(clause)
-            else:
-                counter_weighted[literal] = 1
-            if abs_literal in counter_absolute:
-                counter_absolute[abs_literal] += 1
-            else:
-                counter_absolute[abs_literal] = 1
-            if abs_literal in counter_weighted_absolute:
-                counter_weighted_absolute[abs_literal] += 2 ** -len(clause)
-            else:
-                counter_weighted_absolute[abs_literal] = 1
+            counter_weighted[literal] += 2 ** -len(clause)
+            counter_absolute[abs_literal] += 1
+            counter_weighted_absolute[abs_literal] += 2 ** -len(clause)
+
     return counter_weighted, counter_absolute, counter_weighted_absolute
 
 def get_counter(formula, two_clause = False):
@@ -135,14 +129,3 @@ def get_counter(formula, two_clause = False):
                 else:
                     counter[literal] = 1
     return counter
-
-def shortest_clause_positive(formula):
-    min_len = sys.maxsize
-    best_literal = None
-    for clause in formula:
-        if all(literal >= 0 for literal in clause):
-            len_clause = len(clause)
-            if len_clause < min_len:
-                best_literal = clause[0]
-                min_len = len_clause
-    return formula[0][0] if not best_literal else best_literal
