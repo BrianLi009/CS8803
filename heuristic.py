@@ -8,88 +8,34 @@ from collections import defaultdict
 
 random.seed(42) 
 
-def choose_literal(formula, heuristic = "v"): #r(random), t(two-clause), v(voting), p(probabilitic)
-    """add heuristic on how the literals are chosen"""
-    #reference: https://baldur.iti.kit.edu/sat/files/2018/l05.pdf
-    #https://en.wikipedia.org/wiki/Boolean_satisfiability_algorithm_heuristics
-    start_time = time.time()
-    if heuristic == "r":
-        counter = get_counter(formula)
-        literals = list(counter.keys())
-        selected_literal = random.choice(literals)
-    elif heuristic == "t":
-        counter = get_counter(formula, True)
-        if counter != {}:
-            selected_literal = max(counter, key=counter.get)
-        else:
-            counter = get_counter(formula)
-            literals = list(counter.keys())
-            selected_literal = random.choice(literals)
-    elif heuristic == "v":
-        counter_dicts = get_counter_all(formula)
-        counter = get_counter(formula)
-        counter_weighted, counter_absolute, counter_weighted_absolute = counter_dicts[0], counter_dicts[1], counter_dicts[2]
-        #perform relative majority voting
-        #Jeroslow-Wang Heuristic
-        selected_literal_0 = max(counter_weighted, key=counter_weighted.get)
-        #Jeroslow-Wang Heuristic (2 sided)
-        selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
-        #DLCS
-        selected_literal_2 = max(counter_absolute, key=counter_absolute.get)
-        #2-clause
-        counter = get_counter(formula, True)
-        if counter != {}:
-            selected_literal_3 = max(counter, key=counter.get)
-        else:
-            counter = get_counter(formula)
-            literals = list(counter.keys())
-            selected_literal_3 = random.choice(literals)
-        selected_literal = majority_voting([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3 ])
-    elif heuristic == "p":
-        counter_dicts = get_counter_all(formula)
-        counter = get_counter(formula)
-        counter_weighted, counter_absolute, counter_weighted_absolute = counter_dicts[0], counter_dicts[1], counter_dicts[2]
-        #perform relative majority voting
-        #Jeroslow-Wang Heuristic
-        selected_literal_0 = max(counter_weighted, key=counter_weighted.get)
-        #Jeroslow-Wang Heuristic (2 sided)
-        selected_literal_1 = max(counter_weighted_absolute, key=counter_weighted_absolute.get)
-        #DLCS
-        selected_literal_2 = max(counter_absolute, key=counter_absolute.get)
-        #2-clause
-        counter = get_counter(formula, True)
-        if counter != {}:
-            selected_literal_3 = max(counter, key=counter.get)
-        else:
-            counter = get_counter(formula)
-            literals = list(counter.keys())
-            selected_literal_3 = random.choice(literals)
-        selected_literal = output_based_on_prob([selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3])
-    else:
-        print ("invalid option, using 2-clause by default")
-        counter = get_counter(formula, True)
-        selected_literal = max(counter, key=counter.get)
+def choose_literal(formula, heuristic="v"):  
+    counter_dicts = get_counter_all(formula)
+    counter_two_clause = get_counter(formula, True) if heuristic in ['v', 'p', 't'] else {}
+    counter = get_counter(formula)
+    counter_weighted, counter_absolute, counter_weighted_absolute = counter_dicts[0], counter_dicts[1], counter_dicts[2]
 
-    #print ("literal chosen by different heuristics:", selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3)
-    #print ("choosing", selected_literal)
+    if heuristic == "r":
+        selected_literal = random.choice(list(counter.keys()))
+    elif heuristic == "t":
+        selected_literal = get_max(counter_two_clause) if counter_two_clause else random.choice(list(counter.keys()))
+    elif heuristic in ["v", "p"]:
+        selected_literal_0 = get_max(counter_weighted)
+        selected_literal_1 = get_max(counter_weighted_absolute)
+        selected_literal_2 = get_max(counter_absolute)
+        selected_literal_3 = get_max(counter_two_clause) if counter_two_clause else random.choice(list(counter.keys()))
+        list_of_literals = [selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3 ]
+        selected_literal = majority_voting(list_of_literals) if heuristic == "v" else output_based_on_prob(list_of_literals)
+    else:
+        print("invalid option, using 2-clause by default")
+        selected_literal = get_max(counter_two_clause) if counter_two_clause else random.choice(list(counter.keys()))
+
     settings.split_counter += 1
-    elapsed_time = time.time() - start_time
-    print ("heuristic cost: ", elapsed_time)
     return selected_literal
 
 def majority_voting(int_list):
-    count_dict = {}
-
-    for num in int_list:
-        if num not in list(count_dict.keys()):
-            count_dict[num] = 0
-        else:
-            count_dict[num] += 1
-
+    count_dict = Counter(int_list)
     max_count = max(count_dict.values())
-
     majority_elements = [k for k, v in count_dict.items() if v == max_count]
-
     return random.choice(majority_elements)
 
 def output_based_on_prob(int_list):
@@ -98,19 +44,8 @@ def output_based_on_prob(int_list):
     prob = [counts[key]/total for key in counts]
     return random.choices(list(counts.keys()), prob)[0]
 
-def get_counter_all(formula):
-    counter_weighted = defaultdict(float)
-    counter_absolute = defaultdict(int)
-    counter_weighted_absolute = defaultdict(float)
-    
-    for clause in formula:
-        for literal in clause:
-            abs_literal = abs(literal)
-            counter_weighted[literal] += 2 ** -len(clause)
-            counter_absolute[abs_literal] += 1
-            counter_weighted_absolute[abs_literal] += 2 ** -len(clause)
-
-    return counter_weighted, counter_absolute, counter_weighted_absolute
+def get_max(counter):
+    return max(counter, key=counter.get)
 
 def get_counter(formula, two_clause = False):
     counter = {}
@@ -129,3 +64,17 @@ def get_counter(formula, two_clause = False):
                 else:
                     counter[literal] = 1
     return counter
+
+def get_counter_all(formula):
+    counter_weighted = defaultdict(float)
+    counter_absolute = defaultdict(int)
+    counter_weighted_absolute = defaultdict(float)
+    
+    for clause in formula:
+        for literal in clause:
+            abs_literal = abs(literal)
+            counter_weighted[literal] += 2 ** -len(clause)
+            counter_absolute[abs_literal] += 1
+            counter_weighted_absolute[abs_literal] += 2 ** -len(clause)
+
+    return counter_weighted, counter_absolute, counter_weighted_absolute
