@@ -2,6 +2,8 @@
 import sys, random
 import os
 
+random.seed(42) 
+
 #The number N of variables, the number K=3 of distinct literals per clause, and the number L of clauses.
 
 def generate_random(N, K, L):
