@@ -22,7 +22,7 @@ for file in "$DIRECTORY"/*; do
   if [[ ! -d "$file" ]]; then
     # Run the python command with the file and 't' value as arguments, capture the output
     result=$(python3 main.py "$file" "$T_VALUE")
-    echo $result
+    echo $file: $result
 
     # If result contains "s SATISFIABLE", increment the counter
     if [[ $result == *"s SATISFIABLE"* ]]; then
