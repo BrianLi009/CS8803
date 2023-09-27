@@ -20,7 +20,7 @@ def parse_dimacs_file(filename):
                 continue
             clause = list(map(int, line.split()[:-1]))
             if clause:
-                clauses.append(clause)
+                clauses.append(clause) 
     return clauses, var_num
 
 def unit_propagation(formula):
@@ -45,27 +45,21 @@ def unit_propagation(formula):
             index += 1
     return formula, assignment
 
+def reduce_formula(formula, literals):
+    for literal in literals:
+        formula = assign(formula, literal)
+    return formula
+
 def find_literal(formula):
-    assignment = [] 
-    counter = get_counter(formula)
-    pure_literals = {literal for literal, times in counter.items() if -literal not in counter}
-
-    new_formula = []
-    for clause in formula:
-        new_clause = []
-        for literal in clause:
-            if abs(literal) in pure_literals:
-                if literal > 0:
-                    assignment.append(literal)
-                continue
-            new_clause.append(literal)
-        if new_clause:
-            new_formula.append(new_clause)
-
-    return new_formula, assignment
+    literal_counts = get_counter(formula)
+    pures = [literal for literal in literal_counts if -literal not in literal_counts]
+    
+    updated_formula = reduce_formula(formula, pures)
+    
+    return updated_formula, pures
 
 def assign(formula, unit):
-    """if a clause has only one unassigned literal, that literal must be assigned the value that satisfies the clause"""
+    #if a clause has only one unassigned literal, that literal must be assigned the value that satisfies the clause
     new_formula = []
     for clause in formula:
         if unit in clause:
@@ -81,11 +75,11 @@ def solve(formula, assignment, arg=None):
     formula, unit_assignment = unit_propagation(formula)
 
     assignment += pure_assignment + unit_assignment
-
+    
+    if formula == "flag":
+        return []
     if not formula:
         return assignment
-    elif formula == "flag":
-        return []
 
     variable = choose_literal(formula, arg) if arg else choose_literal(formula)
 
