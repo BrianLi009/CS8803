@@ -1,0 +1,105 @@
+c total solving time: 1.566093921661377 c number of splits: 657 s UNSATISFIABLE
+c total solving time: 3.0209174156188965 c number of splits: 1367 s UNSATISFIABLE
+c total solving time: 0.2799062728881836 c number of splits: 123 s SATISFIABLE v -1 -2 3 -4 -5 -6 -7 8 -9 10 -11 12 13 14 15 16 17 -18 -19 20 -21 -22 -23 24 25 26 27 -28 -29 -30 -31 -32 33 34 35 -36 -37 38 -39 -40 -41 42 -43 44 -45 46 47 48 49 50 51 52 53 54 55 56 57 -58 -59 60 -61 62 -63 64 65 -66 -67 68 69 -70 -71 -72 -73 74 -75 -76 77 -78 -79 80 81 -82 -83 84 85 -86 -87 88 89 90 91 92 -93 -94 95 96 97 98 -99 -100 0
+c total solving time: 2.212453842163086 c number of splits: 915 s UNSATISFIABLE
+c total solving time: 2.212047815322876 c number of splits: 967 s UNSATISFIABLE
+c total solving time: 2.243222236633301 c number of splits: 971 s UNSATISFIABLE
+c total solving time: 2.273341655731201 c number of splits: 997 s UNSATISFIABLE
+c total solving time: 2.2351179122924805 c number of splits: 933 s UNSATISFIABLE
+c total solving time: 1.9676456451416016 c number of splits: 859 s UNSATISFIABLE
+c total solving time: 1.0143024921417236 c number of splits: 460 s SATISFIABLE v -1 2 -3 -4 -5 -6 -7 -8 -9 -10 -11 12 13 -14 -15 -16 17 18 19 -20 -21 22 23 24 -25 26 -27 -28 29 30 -31 32 33 34 -35 -36 37 -38 -39 -40 -41 42 -43 -44 45 -46 47 48 49 50 -51 -52 -53 54 55 -56 -57 -58 59 -60 -61 62 -63 64 -65 66 -67 68 -69 -70 71 -72 73 -74 -75 76 77 78 79 80 -81 82 83 -84 -85 86 -87 -88 -89 90 -91 92 -93 -94 95 96 97 -98 99 100 0
+c total solving time: 1.9343061447143555 c number of splits: 795 s UNSATISFIABLE
+c total solving time: 1.6659951210021973 c number of splits: 673 s UNSATISFIABLE
+c total solving time: 1.8216092586517334 c number of splits: 741 s UNSATISFIABLE
+c total solving time: 2.406454086303711 c number of splits: 1067 s UNSATISFIABLE
+c total solving time: 3.341017961502075 c number of splits: 1575 s UNSATISFIABLE
+c total solving time: 1.7616093158721924 c number of splits: 725 s UNSATISFIABLE
+c total solving time: 3.1179490089416504 c number of splits: 1403 s UNSATISFIABLE
+c total solving time: 2.5115420818328857 c number of splits: 1219 s UNSATISFIABLE
+c total solving time: 1.6461224555969238 c number of splits: 731 s UNSATISFIABLE
+c total solving time: 1.8170619010925293 c number of splits: 827 s UNSATISFIABLE
+c total solving time: 2.4511585235595703 c number of splits: 1095 s UNSATISFIABLE
+c total solving time: 0.8153603076934814 c number of splits: 375 s UNSATISFIABLE
+c total solving time: 1.4391505718231201 c number of splits: 649 s UNSATISFIABLE
+c total solving time: 1.713728427886963 c number of splits: 729 s UNSATISFIABLE
+c total solving time: 3.33859920501709 c number of splits: 1585 s UNSATISFIABLE
+c total solving time: 1.569486379623413 c number of splits: 685 s UNSATISFIABLE
+c total solving time: 1.995621919631958 c number of splits: 881 s UNSATISFIABLE
+c total solving time: 2.1860358715057373 c number of splits: 995 s UNSATISFIABLE
+c total solving time: 2.9197604656219482 c number of splits: 1369 s UNSATISFIABLE
+c total solving time: 0.7388880252838135 c number of splits: 331 s UNSATISFIABLE
+c total solving time: 2.1325511932373047 c number of splits: 993 s UNSATISFIABLE
+c total solving time: 3.6494805812835693 c number of splits: 1791 s UNSATISFIABLE
+c total solving time: 3.954296112060547 c number of splits: 1924 s SATISFIABLE v -1 2 -3 -4 5 -6 7 8 -9 10 -11 12 13 -14 15 -16 -17 18 19 20 -21 -22 -23 -24 -25 -26 27 -28 -29 -30 -31 32 -33 34 35 36 37 38 39 -40 -41 -42 43 44 -45 -46 -47 48 -49 -50 51 51 51 51 51 51 -52 53 -54 55 56 -57 58 -59 -60 -61 62 -63 64 -65 -66 -67 -68 69 70 71 -72 -73 -74 -75 -76 -77 -78 79 -80 -81 -82 83 -84 85 -86 -87 -88 89 -90 -91 92 -93 -94 -95 96 -97 -98 99 100 0
+c total solving time: 1.9277901649475098 c number of splits: 855 s UNSATISFIABLE
+c total solving time: 2.641692876815796 c number of splits: 1159 s UNSATISFIABLE
+c total solving time: 1.8636810779571533 c number of splits: 859 s UNSATISFIABLE
+c total solving time: 3.089491128921509 c number of splits: 1491 s UNSATISFIABLE
+c total solving time: 1.6986596584320068 c number of splits: 765 s UNSATISFIABLE
+c total solving time: 3.3978166580200195 c number of splits: 1579 s UNSATISFIABLE
+c total solving time: 3.0806221961975098 c number of splits: 1599 s UNSATISFIABLE
+c total solving time: 1.9760949611663818 c number of splits: 893 s UNSATISFIABLE
+c total solving time: 3.3505306243896484 c number of splits: 1595 s UNSATISFIABLE
+c total solving time: 1.7540042400360107 c number of splits: 795 s UNSATISFIABLE
+c total solving time: 1.0375571250915527 c number of splits: 469 s UNSATISFIABLE
+c total solving time: 2.330721855163574 c number of splits: 1147 s UNSATISFIABLE
+c total solving time: 1.885664463043213 c number of splits: 821 s UNSATISFIABLE
+c total solving time: 2.5884220600128174 c number of splits: 1249 s UNSATISFIABLE
+c total solving time: 1.8462152481079102 c number of splits: 855 s UNSATISFIABLE
+c total solving time: 2.8338966369628906 c number of splits: 1285 s UNSATISFIABLE
+c total solving time: 1.293886661529541 c number of splits: 579 s UNSATISFIABLE
+c total solving time: 2.8251230716705322 c number of splits: 1373 s UNSATISFIABLE
+c total solving time: 3.2874832153320312 c number of splits: 1545 s UNSATISFIABLE
+c total solving time: 1.830798625946045 c number of splits: 805 s UNSATISFIABLE
+c total solving time: 1.9711039066314697 c number of splits: 905 s UNSATISFIABLE
+c total solving time: 1.668199062347412 c number of splits: 757 s UNSATISFIABLE
+c total solving time: 0.3911566734313965 c number of splits: 167 s UNSATISFIABLE
+c total solving time: 1.6521916389465332 c number of splits: 675 s UNSATISFIABLE
+c total solving time: 1.2004122734069824 c number of splits: 559 s UNSATISFIABLE
+c total solving time: 2.622852325439453 c number of splits: 1245 s UNSATISFIABLE
+c total solving time: 2.0719404220581055 c number of splits: 927 s UNSATISFIABLE
+c total solving time: 3.225698947906494 c number of splits: 1525 s UNSATISFIABLE
+c total solving time: 0.8484194278717041 c number of splits: 397 s UNSATISFIABLE
+c total solving time: 2.122474193572998 c number of splits: 949 s UNSATISFIABLE
+c total solving time: 1.3976705074310303 c number of splits: 627 s UNSATISFIABLE
+c total solving time: 2.186213254928589 c number of splits: 1013 s UNSATISFIABLE
+c total solving time: 2.7909536361694336 c number of splits: 1289 s UNSATISFIABLE
+c total solving time: 2.474025011062622 c number of splits: 1219 s UNSATISFIABLE
+c total solving time: 1.919668436050415 c number of splits: 831 s UNSATISFIABLE
+c total solving time: 0.9361844062805176 c number of splits: 389 s UNSATISFIABLE
+c total solving time: 0.27100348472595215 c number of splits: 129 s SATISFIABLE v -1 2 -3 4 5 -6 -7 8 -9 10 11 -12 13 14 15 -16 -17 18 -19 20 -21 22 23 24 -25 -26 -27 28 29 -30 -31 32 -33 -34 -35 -36 -37 -38 -39 40 41 42 -43 -44 45 -46 47 48 -49 50 -51 52 53 54 55 -56 -57 58 59 -60 -61 -62 -63 64 65 -66 67 68 69 -70 71 -72 73 74 -75 -76 -77 -78 79 80 -81 -82 83 -84 -85 -86 87 88 89 -90 -91 -92 93 94 95 -96 97 98 99 100 0
+c total solving time: 3.1913671493530273 c number of splits: 1507 s UNSATISFIABLE
+c total solving time: 1.8073983192443848 c number of splits: 809 s UNSATISFIABLE
+c total solving time: 1.1650755405426025 c number of splits: 527 s UNSATISFIABLE
+c total solving time: 1.9335877895355225 c number of splits: 873 s UNSATISFIABLE
+c total solving time: 1.9292898178100586 c number of splits: 861 s UNSATISFIABLE
+c total solving time: 1.709294080734253 c number of splits: 793 s UNSATISFIABLE
+c total solving time: 1.7160789966583252 c number of splits: 745 s UNSATISFIABLE
+c total solving time: 2.797628402709961 c number of splits: 1275 s UNSATISFIABLE
+c total solving time: 2.3002066612243652 c number of splits: 1059 s UNSATISFIABLE
+c total solving time: 1.7965662479400635 c number of splits: 815 s SATISFIABLE v -1 2 3 4 5 6 7 8 9 10 -11 12 13 14 15 -16 -17 -18 19 -20 21 22 -23 24 25 26 -27 -28 -29 -30 -31 -32 33 -34 35 36 37 -38 -39 -40 -41 -42 -43 44 -45 46 -47 -48 49 50 51 52 -53 54 55 -56 -57 58 -59 60 -61 -62 63 -64 -65 -66 67 68 69 -70 71 -72 -73 74 -75 76 -77 78 79 -80 81 -82 -83 -84 -85 86 87 -88 89 90 91 92 93 -94 95 -96 97 98 99 100 0
+c total solving time: 1.4421172142028809 c number of splits: 609 s UNSATISFIABLE
+c total solving time: 1.7606971263885498 c number of splits: 779 s UNSATISFIABLE
+c total solving time: 2.0923290252685547 c number of splits: 919 s UNSATISFIABLE
+c total solving time: 3.4048168659210205 c number of splits: 1527 s UNSATISFIABLE
+c total solving time: 2.3723714351654053 c number of splits: 1149 s SATISFIABLE v 1 2 -3 -4 -5 -6 -7 8 9 10 -11 12 13 14 15 16 -17 18 19 20 21 22 -23 -24 -25 26 -27 28 29 30 -31 32 -33 34 -35 -36 -37 -38 39 40 -41 -42 43 -44 45 46 47 -48 -49 50 -51 -52 53 54 55 56 -57 58 -59 60 -61 -62 -63 64 -65 -66 67 -68 69 -70 -71 -72 73 -74 75 76 77 78 79 80 81 82 83 84 85 86 87 -88 -89 90 91 92 -93 94 -95 -96 97 -98 99 -100 0
+c total solving time: 1.9595248699188232 c number of splits: 849 s UNSATISFIABLE
+c total solving time: 2.00282883644104 c number of splits: 949 s UNSATISFIABLE
+c total solving time: 3.8224165439605713 c number of splits: 1843 s UNSATISFIABLE
+c total solving time: 3.386396646499634 c number of splits: 1641 s UNSATISFIABLE
+c total solving time: 1.6900451183319092 c number of splits: 819 s UNSATISFIABLE
+c total solving time: 1.4071602821350098 c number of splits: 637 s UNSATISFIABLE
+c total solving time: 0.5988810062408447 c number of splits: 255 s UNSATISFIABLE
+c total solving time: 3.942927837371826 c number of splits: 1993 s UNSATISFIABLE
+c total solving time: 2.0696840286254883 c number of splits: 969 s UNSATISFIABLE
+c total solving time: 1.5511479377746582 c number of splits: 711 s UNSATISFIABLE
+c total solving time: 0.8728811740875244 c number of splits: 374 s SATISFIABLE v 1 -2 -3 4 -5 6 7 -8 9 10 11 12 13 14 15 -16 17 18 -19 -20 21 -22 -23 -24 25 26 27 28 29 30 -31 32 -33 34 35 -36 37 38 39 -40 41 42 43 -44 45 -46 -47 -48 49 50 51 52 -53 54 -55 -56 57 -58 59 -60 -61 -62 -63 -64 -65 -66 -67 68 69 70 71 72 73 74 75 76 77 78 79 80 -81 82 -83 -84 85 86 87 88 89 -90 91 -92 -93 -94 95 -96 -97 98 -99 100 0
+c total solving time: 3.8669371604919434 c number of splits: 1883 s UNSATISFIABLE
+c total solving time: 1.1626925468444824 c number of splits: 547 s UNSATISFIABLE
+c total solving time: 1.7227647304534912 c number of splits: 765 s UNSATISFIABLE
+c total solving time: 2.725421667098999 c number of splits: 1371 s UNSATISFIABLE
+Total solving time: 210.44368934631347675
+Median solving time: 1.96
+Total number of splits: 96581
+Median number of splits: 877.00
+Number of satisfiable: 7
