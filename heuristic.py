@@ -19,9 +19,9 @@ def choose_literal(formula, heuristic="v"):
     elif heuristic == "t":
         selected_literal = get_max(counter_two_clause) if counter_two_clause else random.choice(list(counter.keys()))
     elif heuristic in ["v", "p"]:
-        selected_literal_0 = get_max(counter_weighted)
-        selected_literal_1 = get_max(counter_weighted_absolute)
-        selected_literal_2 = get_max(counter_absolute)
+        selected_literal_0 = get_max(counter_weighted) #Jeroslow-Wang Heuristic
+        selected_literal_1 = get_max(counter_weighted_absolute) #Jeroslow-Wang Heuristic (2-sides)
+        selected_literal_2 = get_max(counter_absolute) #DLCS: Dynamic Largest Individual Sum
         selected_literal_3 = get_max(counter_two_clause) if counter_two_clause else random.choice(list(counter.keys()))
         list_of_literals = [selected_literal_0, selected_literal_1, selected_literal_2, selected_literal_3 ]
         selected_literal = majority_voting(list_of_literals) if heuristic == "v" else output_based_on_prob(list_of_literals)
