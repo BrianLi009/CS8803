@@ -7,6 +7,9 @@ main.py                 main file for the DPLL SAT Solver
 heuristic.py            heuristics implementation for the solver
 settings.py             global counter variables for unit propagations and branching
 runbenchmarks.sh        bash script to run 100 UNSAT instances from the SATLIB benchmark
+p-100 p-150 ...         log files of random 3-SAT instances
+100-300 100-320 ...     generated random 3-SAT instance labeled in the form of N-L
+
 README
 
 ================================================================================
