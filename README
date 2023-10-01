@@ -21,6 +21,8 @@ EXAMPLES:
 
 **Example:** python main.py einstein.cnf t
 
+**Run random 3-SAT benchmarks:** ./runbenchmarks.sh [r/t/v/p] [directory containing DIMACS files]
+
 Note: if no parameter is given, we will use 2-clause by default
 
 ================================================================================
